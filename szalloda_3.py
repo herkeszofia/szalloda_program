@@ -29,19 +29,17 @@ class Szalloda:
             self.szobak = []
             self.foglalasok = []
             self.engedelyezett_idoszak = (datetime(2024, 9, 10), datetime(2024, 11, 20))
-            self.napi_max_foglalas = {}  # Szótár a napokhoz tartozó foglalások számának nyilvántartására
+            self.napi_max_foglalas = {}  
 
         def uj_szoba(self, szoba):
             self.szobak.append(szoba)
 
         def foglal(self, szobaszam, datum):
-            # Kivételként kezeljük az 2024-09-10 és 2024-09-14 közötti időszakot
             kivetel_kezdete = datetime(2024, 9, 10)
             kivetel_vege = datetime(2024, 9, 14)
 
             if self.engedelyezett_idoszak[0] <= datum <= self.engedelyezett_idoszak[1] and not (
                     kivetel_kezdete <= datum <= kivetel_vege):
-                # Ellenőrizzük, hogy van-e már foglalás az adott napon
                 if datum not in self.napi_max_foglalas:
                     self.napi_max_foglalas[datum] = 0
 
@@ -57,7 +55,7 @@ class Szalloda:
                             return None
                         else:
                             self.foglalasok.append(foglalas)
-                            self.napi_max_foglalas[datum] += 1  # Növeljük a foglalások számát az adott napon
+                            self.napi_max_foglalas[datum] += 1
                             return szoba.ar
                 return None
             else:
